@@ -9,23 +9,30 @@ const TLWrapper = styled.div`
 	flex-direction: column;
 	align-items: center;
 
-	margin: 10px;
+	margin-top: 20px;
 
-	h3 {
+	.list-header {
 		font-size: 2.6rem;
 	}
+
 
 `;
 
 
 function TodoList() {
 
-	const { todoList } = useContext(TodoContext);
+	const { todoList, markTodo } = useContext(TodoContext);
 
 	return (
 		<TLWrapper>
-			<h3>Todo List Goes Here!</h3>
-			<Todo todo={todoList[0]} />
+			<div className='list-header'>
+				<span>My Todo Tasks</span>
+			</div>
+			{todoList.map(todo => {
+				return (
+					<Todo key={todo.id} todo={todo} markTodo={markTodo} />
+				);
+			})}
 		</TLWrapper>
 	);
 }

@@ -24,29 +24,33 @@ function App() {
 	const initialTodo = {
 		task: 'Add tasks to the Todo List',
 		id: new Date(),
-		complete: false
+		completed: false
 	};
 
 	const [todoList, updateList] = useState([initialTodo]);
 
-	const addTodo = (todo) => {
-		updateList([...todoList, todo]);
+	const addTask = (task) => {
+		if (task !== '') {
+			updateList([...todoList,
+				{ task: task, completed: false, id: new Date() }
+			]);
+		}
 	};
 
 	const markTodo = (id) => {
 		updateList(todoList.map(todo => {
 			if (todo.id !== id) return todo;
-			else return {...todo, complete: !todo.complete};
+			else return {...todo, completed: !todo.completed};
 		}));
 	};
 
 	const clearDone = () => {
-		updateList(todoList.filter(todo => !todo.complete));
+		updateList(todoList.filter(todo => !todo.completed));
 	};
 
 
 	return (
-		<TodoContext.Provider value={{todoList, addTodo, markTodo, clearDone}} >
+		<TodoContext.Provider value={{todoList, addTask, markTodo, clearDone}} >
 			<AppWrapper>
 				<h1>Todo App With Reducer!</h1>
 				<TodoForm />

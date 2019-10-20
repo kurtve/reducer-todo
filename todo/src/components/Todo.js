@@ -1,33 +1,60 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import TodoContext from '../contexts/TodoContext';
 
 
 const TodoWrapper = styled.div`
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-
 	margin: 10px;
+	padding: 5px;
+	border: 1px solid grey;
+	width: 400px;
 
-	h3 {
+	div {
+		margin: 5px;
+	}
+
+	.todo {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.task {
 		font-size: 2rem;
 	}
 
-	span {
+	.date {
+		font-size: 1.8rem;
 		font-style: italic;
 	}
 
+	.done {
+		font-size: 1.8rem;
+	}
+
+	.check {
+		width: 15px;
+		height: 15px;
+		margin-left: 10px;
+	}
 `;
 
 
 function Todo(props) {
 
-	const { markTodo } = useContext(TodoContext);
+	const checkTodo = (e) => {
+		props.markTodo(props.todo.id);
+	};
 
 	return (
 		<TodoWrapper>
-			<h3>Todo <span>{props.todo.task}</span> Goes Here!</h3>
+			<div className='todo'>
+				<div className='task'>{props.todo.task}</div>
+				<div className='date'>Added: {props.todo.id.toUTCString().substring(0, 12)}</div>
+				<div className='done'>
+					Complete?
+					<input className='check' type='checkbox' onChange={checkTodo} checked={props.todo.completed} />
+				</div>
+			</div>
 		</TodoWrapper>
 	);
 }
