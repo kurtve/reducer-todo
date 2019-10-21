@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
+import TodoContext from '../contexts/TodoContext';
 
 
 const TodoWrapper = styled.div`
@@ -41,8 +42,10 @@ const TodoWrapper = styled.div`
 
 function Todo(props) {
 
+	const { dispatch } = useContext(TodoContext);
+
 	const checkTodo = (e) => {
-		props.markTodo(props.todo.id);
+		dispatch({ type: 'MARK_TODO', payload: props.todo.id });
 	};
 
 	return (

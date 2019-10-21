@@ -49,7 +49,7 @@ const TFWrapper = styled.div`
 
 function TodoForm() {
 
-	const { addTask, clearDone } = useContext(TodoContext);
+	const { dispatch } = useContext(TodoContext);
 
 	const [newTask, setNewTask] = useState('');
 
@@ -60,13 +60,13 @@ function TodoForm() {
 
 	const addHandler = (e) => {
 		e.preventDefault();
-		addTask(newTask);
+		dispatch({ type: 'ADD_TODO', payload: newTask })
 		setNewTask('');
 	};
 
 	const clearHandler = (e) => {
 		e.preventDefault();
-		clearDone();
+		dispatch({ type: 'CLEAR_DONE' });
 	};
 
 	return (

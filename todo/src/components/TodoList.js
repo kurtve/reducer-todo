@@ -1,6 +1,5 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import TodoContext from '../contexts/TodoContext';
 import Todo from './Todo';
 
 
@@ -14,25 +13,17 @@ const TLWrapper = styled.div`
 	.list-header {
 		font-size: 2.6rem;
 	}
-
-
 `;
 
 
-function TodoList() {
-
-	const { todoList, markTodo } = useContext(TodoContext);
+function TodoList(props) {
 
 	return (
 		<TLWrapper>
 			<div className='list-header'>
 				<span>My Todo Tasks</span>
 			</div>
-			{todoList.map(todo => {
-				return (
-					<Todo key={todo.id} todo={todo} markTodo={markTodo} />
-				);
-			})}
+			{props.todoList.map(todo => ( <Todo key={todo.id} todo={todo} /> ) )}
 		</TLWrapper>
 	);
 }
